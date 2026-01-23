@@ -13,7 +13,7 @@ class Image(models.Model):
     legend = models.CharField(max_length=255)
     category = models.CharField(max_length=255, choices=CATEGORY_OPTIONS, default='')
     description = models.TextField()
-    photo = models.CharField(max_length=255, null=False, blank=False)
+    photo = models.ImageField(upload_to='images/%Y/%m/%d/', blank=True)
     published = models.BooleanField(default=False)
     image_date = models.DateTimeField(default=datetime.now, blank=False)
 
