@@ -1,12 +1,13 @@
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from django.contrib.auth.models import User
+from user.forms import LoginForm, RegisterForm
 
 def login(request):
-    return render(request, 'user/login.html')
+    form = LoginForm()
+    return render(request, 'user/login.html', {'form': form})
 
 def logout(request):
     return render(request, 'user/logout.html')
 
 def register(request):
-    return render(request, 'user/register.html')
+    form = RegisterForm()
+    return render(request, 'user/register.html', {'form': form})
