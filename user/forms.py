@@ -21,3 +21,22 @@ class RegisterForm(forms.Form):
     password2 = forms.CharField(label='Confirmação de Senha', required=True, widget=forms.PasswordInput(
         attrs={'placeholder': 'Confirme sua senha', 'class': 'form-control'}
     ))
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if username:
+            username = username.strip()
+            if ' ' in username:
+                raise forms.ValidationError('O nome de usuário não pode conter espaços.')
+            else:
+                return username
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        password1 = cleaned_data.get('password1')
+        password2 = cleaned_data.get('password2')
+
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError('As senhas não coincidem.')
+        
+        return cleaned_data
